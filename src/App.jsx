@@ -401,6 +401,8 @@ function App() {
           )}
         </main>
 
+        {/* No overlay on desktop to allow simultaneous slide editing */}
+
         {activeTab === 'new' && (
           <PropertiesPanel 
             slide={currentPresentation.slides[selectedSlideIndex]}

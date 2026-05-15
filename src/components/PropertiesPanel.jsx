@@ -31,6 +31,18 @@ const PropertiesPanel = ({ slide, onUpdate, template, activeElement, setActiveEl
 
   return (
     <aside className={`properties-panel ${isActive ? 'active' : ''}`}>
+      {/* Universal Close Interface */}
+      <div className="panel-header-universal">
+        <span>Properties & Tools</span>
+        <button 
+          className="panel-close-btn-universal" 
+          onClick={() => setIsActive(false)}
+          title="Close Tools"
+        >
+          ×
+        </button>
+      </div>
+
       <div className="mobile-panel-header">
         <button className="panel-close-btn" onClick={() => setIsActive(false)}>
           <ChevronDown size={24} />
