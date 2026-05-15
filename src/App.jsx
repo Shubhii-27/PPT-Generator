@@ -429,6 +429,8 @@ function App() {
               <h3>{modalMode === 'create' ? 'Name Your Project' : 'Rename Project'}</h3>
               <p>{modalMode === 'create' ? 'Give your new presentation a descriptive title.' : 'Enter a new name for this presentation.'}</p>
               <input 
+                id="project-name-input"
+                name="projectName"
                 type="text" 
                 className="modal-input" 
                 value={newProjectName} 

@@ -68,6 +68,8 @@ const PropertiesPanel = ({ slide, onUpdate, template, activeElement, setActiveEl
             <div className="control-card">
               <div className="card-title">Typography</div>
               <select 
+                id="font-family-select"
+                name="fontFamily"
                 className="font-family-select" 
                 value={slide.fontFamily || template.style.fontFamily} 
                 onChange={(e) => onUpdate({ fontFamily: e.target.value })}
@@ -81,7 +83,7 @@ const PropertiesPanel = ({ slide, onUpdate, template, activeElement, setActiveEl
 
               <div className="font-size-stepper">
                 <button className="stepper-btn" title="Decrease Font Size" onMouseDown={(e) => { e.preventDefault(); handleFontSizeChange(-2); }}><Minus size={16} /></button>
-                <input type="number" className="stepper-input" value={slide.fontSize || 56} onChange={(e) => onUpdate({ fontSize: parseInt(e.target.value) || 56 })} />
+                <input id="font-size-input" name="fontSize" type="number" className="stepper-input" value={slide.fontSize || 56} onChange={(e) => onUpdate({ fontSize: parseInt(e.target.value) || 56 })} />
                 <button className="stepper-btn" title="Increase Font Size" onMouseDown={(e) => { e.preventDefault(); handleFontSizeChange(2); }}><Plus size={16} /></button>
               </div>
 
@@ -91,7 +93,7 @@ const PropertiesPanel = ({ slide, onUpdate, template, activeElement, setActiveEl
                 <button className="format-pill" title="Underline" onMouseDown={(e) => { e.preventDefault(); document.execCommand('underline'); }}><Underline size={18} /></button>
                 <button className="format-pill" title="Bullet List" onMouseDown={(e) => { e.preventDefault(); document.execCommand('insertUnorderedList'); }}><List size={18} /></button>
                 <div className="color-swatch-large" title="Text Color" style={{ width: '40px', height: '40px', marginLeft: 'auto' }}>
-                  <input type="color" title="Pick Color" value={slide.textColor || template.style.color || '#000000'} onInput={(e) => {
+                  <input id="text-color-input" name="textColor" type="color" title="Pick Color" value={slide.textColor || template.style.color || '#000000'} onInput={(e) => {
                     document.execCommand('styleWithCSS', false, true);
                     document.execCommand('foreColor', false, e.target.value);
                     onUpdate({ textColor: e.target.value });
@@ -102,7 +104,7 @@ const PropertiesPanel = ({ slide, onUpdate, template, activeElement, setActiveEl
 
               <div className="slider-group" style={{ marginTop: '16px' }}>
                 <div className="slider-header"><span>Line Height</span><span>{slide.lineHeight || 1.2}</span></div>
-                <input type="range" className="modern-slider" min="1" max="3" step="0.1" value={slide.lineHeight || 1.2} onChange={(e) => onUpdate({ lineHeight: parseFloat(e.target.value) })} />
+                <input id="line-height-slider" name="lineHeight" type="range" className="modern-slider" min="1" max="3" step="0.1" value={slide.lineHeight || 1.2} onChange={(e) => onUpdate({ lineHeight: parseFloat(e.target.value) })} />
               </div>
 
               <div className="slider-group">
@@ -215,16 +217,16 @@ const PropertiesPanel = ({ slide, onUpdate, template, activeElement, setActiveEl
                 <div className="grid-2col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '16px' }}>
                   <div className="input-with-label">
                     <label style={{ fontSize: '0.65rem' }}>Width (%)</label>
-                    <input type="number" value={slide.imageW || 40} onChange={(e) => onUpdate({ imageW: parseInt(e.target.value) })} />
+                    <input id="image-width-input" name="imageWidth" type="number" value={slide.imageW || 40} onChange={(e) => onUpdate({ imageW: parseInt(e.target.value) })} />
                   </div>
                   <div className="input-with-label">
                     <label style={{ fontSize: '0.65rem' }}>Height (%)</label>
-                    <input type="number" value={slide.imageH || 35} onChange={(e) => onUpdate({ imageH: parseInt(e.target.value) })} />
+                    <input id="image-height-input" name="imageHeight" type="number" value={slide.imageH || 35} onChange={(e) => onUpdate({ imageH: parseInt(e.target.value) })} />
                   </div>
                 </div>
                 <div className="slider-group">
                   <div className="slider-header"><span>Radius</span><span>{slide.imageRadius || 0}px</span></div>
-                  <input type="range" className="modern-slider" min="0" max="100" value={slide.imageRadius || 0} onChange={(e) => onUpdate({ imageRadius: parseInt(e.target.value) })} />
+                  <input id="image-radius-slider" name="imageRadius" type="range" className="modern-slider" min="0" max="100" value={slide.imageRadius || 0} onChange={(e) => onUpdate({ imageRadius: parseInt(e.target.value) })} />
                 </div>
                 <div className="control-card" style={{ padding: '0', border: 'none', background: 'transparent' }}>
                   <div className="card-title" style={{ fontSize: '0.7rem', marginBottom: '8px' }}>Fitting Mode</div>
@@ -244,12 +246,12 @@ const PropertiesPanel = ({ slide, onUpdate, template, activeElement, setActiveEl
               <div className="card-title">Slide Background</div>
               <div className="input-group-row" style={{ display: 'flex', gap: '12px', marginBottom: '16px' }}>
                 <div className="color-swatch-large" style={{ flex: '0 0 48px', height: '48px' }}>
-                  <input type="color" value={slide.backgroundColor || '#ffffff'} onChange={(e) => onUpdate({ backgroundColor: e.target.value })} />
+                  <input id="bg-color-input" name="backgroundColor" type="color" value={slide.backgroundColor || '#ffffff'} onChange={(e) => onUpdate({ backgroundColor: e.target.value })} />
                   <div style={{ width: '100%', height: '100%', backgroundColor: slide.backgroundColor || '#ffffff', borderRadius: '12px', border: '1px solid var(--border)' }} />
                 </div>
                 <div className="hex-input-group" style={{ flex: 1 }}>
                   <span>#</span>
-                  <input className="hex-input-field" type="text" value={(slide.backgroundColor || '#ffffff').replace('#', '').toUpperCase()} onChange={(e) => onUpdate({ backgroundColor: '#' + e.target.value })} />
+                  <input id="bg-hex-input" name="backgroundHex" className="hex-input-field" type="text" value={(slide.backgroundColor || '#ffffff').replace('#', '').toUpperCase()} onChange={(e) => onUpdate({ backgroundColor: '#' + e.target.value })} />
                 </div>
               </div>
               <div className="color-palette-grid" style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
@@ -261,7 +263,7 @@ const PropertiesPanel = ({ slide, onUpdate, template, activeElement, setActiveEl
             
             <div className="control-card">
               <div className="card-title">Slide Opacity</div>
-              <input type="range" className="modern-slider" min="0" max="100" value={slide.opacity || 100} onChange={(e) => onUpdate({ opacity: parseInt(e.target.value) })} />
+              <input id="slide-opacity-slider" name="slideOpacity" type="range" className="modern-slider" min="0" max="100" value={slide.opacity || 100} onChange={(e) => onUpdate({ opacity: parseInt(e.target.value) })} />
             </div>
           </>
         )}
@@ -314,6 +316,8 @@ const PropertiesPanel = ({ slide, onUpdate, template, activeElement, setActiveEl
             <div className="input-with-label">
               <label>Text Inside</label>
               <input 
+                id="shape-text-input"
+                name="shapeText"
                 type="text" 
                 value={slide.shapes.find(s => s.id === activeElement)?.text || ''} 
                 onChange={(e) => {
@@ -330,6 +334,8 @@ const PropertiesPanel = ({ slide, onUpdate, template, activeElement, setActiveEl
               <div className="input-with-label">
                 <label>Text Color</label>
                 <input 
+                  id="shape-text-color-input"
+                  name="shapeTextColor"
                   type="color" 
                   value={slide.shapes.find(s => s.id === activeElement)?.textColor || '#ffffff'} 
                   onChange={(e) => {
@@ -343,6 +349,8 @@ const PropertiesPanel = ({ slide, onUpdate, template, activeElement, setActiveEl
               <div className="input-with-label">
                 <label>Font Size</label>
                 <input 
+                  id="shape-font-size-input"
+                  name="shapeFontSize"
                   type="number" 
                   value={slide.shapes.find(s => s.id === activeElement)?.fontSize || 14} 
                   onChange={(e) => {
@@ -359,6 +367,8 @@ const PropertiesPanel = ({ slide, onUpdate, template, activeElement, setActiveEl
               <div className="input-with-label">
                 <label>Shape Color</label>
                 <input 
+                  id="shape-color-input"
+                  name="shapeColor"
                   type="color" 
                   value={slide.shapes.find(s => s.id === activeElement)?.color || '#1e40af'} 
                   onChange={(e) => {
@@ -372,6 +382,8 @@ const PropertiesPanel = ({ slide, onUpdate, template, activeElement, setActiveEl
               <div className="input-with-label">
                 <label>Border Color</label>
                 <input 
+                  id="shape-border-color-input"
+                  name="shapeBorderColor"
                   type="color" 
                   value={slide.shapes.find(s => s.id === activeElement)?.borderColor || '#000000'} 
                   onChange={(e) => {
@@ -388,6 +400,8 @@ const PropertiesPanel = ({ slide, onUpdate, template, activeElement, setActiveEl
               <div className="input-with-label">
                 <label>Border (px)</label>
                 <input 
+                  id="shape-border-width-input"
+                  name="shapeBorderWidth"
                   type="number" 
                   value={slide.shapes.find(s => s.id === activeElement)?.borderWidth || 0} 
                   onChange={(e) => {
@@ -401,6 +415,8 @@ const PropertiesPanel = ({ slide, onUpdate, template, activeElement, setActiveEl
               <div className="input-with-label">
                 <label>Radius</label>
                 <input 
+                  id="shape-border-radius-input"
+                  name="shapeBorderRadius"
                   type="number" 
                   value={slide.shapes.find(s => s.id === activeElement)?.borderRadius || 0} 
                   onChange={(e) => {
@@ -440,6 +456,8 @@ const PropertiesPanel = ({ slide, onUpdate, template, activeElement, setActiveEl
               <div className="input-with-label">
                 <label>Width (%)</label>
                 <input 
+                  id="element-width-input"
+                  name="elementWidth"
                   type="number" 
                   value={
                     activeElement === 'image' ? (slide.imageW || 40) : 
@@ -466,6 +484,8 @@ const PropertiesPanel = ({ slide, onUpdate, template, activeElement, setActiveEl
               <div className="input-with-label">
                 <label>Height (%)</label>
                 <input 
+                  id="element-height-input"
+                  name="elementHeight"
                   type="number" 
                   value={
                     activeElement === 'image' ? (slide.imageH || 35) : 

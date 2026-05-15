@@ -106,6 +106,8 @@ const Workspace = ({
       <div className="editor-area">
         <header className="editor-header">
           <input 
+            id="presentation-title-input"
+            name="presentationTitle"
             type="text" 
             className="presentation-title-input" 
             value={presentation.title} 
