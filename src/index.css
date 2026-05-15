@@ -1,13 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Fira+Code:wght@300..700&display=swap');
 
-:root {
+#ppt-generator-app {
   --radius-sm: 8px;
   --radius: 12px;
   --radius-lg: 20px;
   --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-[data-theme="light"] {
+#ppt-generator-app[data-theme="light"],
+#ppt-generator-app [data-theme="light"] {
   --primary: #ef4444;
   --primary-light: #f87171;
   --primary-dark: #b91c1c;
@@ -22,7 +23,8 @@
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.2), 0 4px 6px -4px rgb(0 0 0 / 0.2);
 }
 
-[data-theme="dark"] {
+#ppt-generator-app[data-theme="dark"],
+#ppt-generator-app [data-theme="dark"] {
   --primary: #ef4444;
   --primary-light: #f87171;
   --primary-dark: #b91c1c;
@@ -37,21 +39,21 @@
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.6), 0 4px 6px -4px rgb(0 0 0 / 0.6);
 }
 
-* {
+#ppt-generator-app * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
+#ppt-generator-app {
   font-family: 'Outfit', sans-serif;
   background-color: var(--bg-main);
   color: var(--text-main);
   -webkit-font-smoothing: antialiased;
-  overflow: hidden;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-button {
+#ppt-generator-app button {
   font-family: inherit;
   cursor: pointer;
   border: none;
@@ -59,7 +61,7 @@ button {
   transition: var(--transition);
 }
 
-input, textarea {
+#ppt-generator-app input, #ppt-generator-app textarea {
   font-family: inherit;
   border: none;
   background: none;
@@ -67,37 +69,37 @@ input, textarea {
 }
 
 /* Scrollbar */
-::-webkit-scrollbar {
+#ppt-generator-app ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
-::-webkit-scrollbar-track {
+#ppt-generator-app ::-webkit-scrollbar-track {
   background: transparent;
 }
 
-::-webkit-scrollbar-thumb {
+#ppt-generator-app ::-webkit-scrollbar-thumb {
   background: #cbd5e1;
   border-radius: 10px;
 }
 
-::-webkit-scrollbar-thumb:hover {
+#ppt-generator-app ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
 }
 
-.glass {
+#ppt-generator-app .glass {
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-textarea:focus, .focused {
+#ppt-generator-app textarea:focus, #ppt-generator-app .focused {
   border-radius: 6px;
   box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
   background: rgba(79, 70, 229, 0.02) !important;
 }
 
-[contenteditable]:empty:before {
+#ppt-generator-app [contenteditable]:empty:before {
   content: attr(placeholder);
   color: #94a3b8;
   pointer-events: none;

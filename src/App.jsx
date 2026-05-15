@@ -330,137 +330,139 @@ function App() {
   };
 
   return (
-    <div className={`app-container ${isSidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
-      <Sidebar 
-        activeTab={activeTab} 
-        setActiveTab={setActiveTab} 
-        onCreateNew={handleCreateNew}
-        isCollapsed={isSidebarCollapsed}
-        setIsCollapsed={setIsSidebarCollapsed}
-        theme={theme}
-        setTheme={setTheme}
-      />
-      
-      <main className="main-content">
+    <div id="ppt-generator-app" data-theme={theme}>
+      <div className={`app-container ${isSidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
+        <Sidebar 
+          activeTab={activeTab} 
+          setActiveTab={setActiveTab} 
+          onCreateNew={handleCreateNew}
+          isCollapsed={isSidebarCollapsed}
+          setIsCollapsed={setIsSidebarCollapsed}
+          theme={theme}
+          setTheme={setTheme}
+        />
+        
+        <main className="main-content">
+          {activeTab === 'new' && (
+            <Workspace 
+              presentation={currentPresentation}
+              selectedSlideIndex={selectedSlideIndex}
+              setSelectedSlideIndex={setSelectedSlideIndex}
+              onUpdateSlide={handleUpdateSlide}
+              onAddSlide={handleAddSlide}
+              onDeleteSlide={handleDeleteSlide}
+              onDuplicateSlide={handleDuplicateSlide}
+              onReorder={handleReorderSlides}
+              onUpdatePresentationTitle={handleUpdatePresentationTitle}
+              onSave={handleSave}
+              onPresent={() => setIsPresenting(true)}
+              isSaving={isSaving}
+              template={TEMPLATES[currentPresentation.template]}
+              activeElement={activeElement}
+              setActiveElement={setActiveElement}
+              showProperties={showProperties}
+              setShowProperties={setShowProperties}
+              theme={theme}
+              setTheme={setTheme}
+            />
+          )}
+          
+          {activeTab === 'my' && (
+            <MyPresentations 
+              presentations={savedPresentations}
+              onSelect={(p) => {
+                setCurrentPresentation(p);
+                localStorage.setItem('ppt_generator_last_active_id', p.id.toString());
+                setSelectedSlideIndex(0);
+                setActiveTab('new');
+                showNotification('Loaded: ' + p.title);
+              }}
+              onDelete={handleDeletePresentation}
+              onRename={handleRenameRequest}
+              theme={theme}
+              setTheme={setTheme}
+            />
+          )}
+          
+          {activeTab === 'templates' && (
+            <TemplateGallery 
+              templates={TEMPLATES}
+              onSelect={handleSelectTemplate}
+              theme={theme}
+              setTheme={setTheme}
+            />
+          )}
+          
+          {activeTab === 'export' && (
+            <ExportMenu 
+              presentation={currentPresentation} 
+              template={TEMPLATES[currentPresentation.template]} 
+            />
+          )}
+        </main>
+
         {activeTab === 'new' && (
-          <Workspace 
-            presentation={currentPresentation}
-            selectedSlideIndex={selectedSlideIndex}
-            setSelectedSlideIndex={setSelectedSlideIndex}
-            onUpdateSlide={handleUpdateSlide}
-            onAddSlide={handleAddSlide}
-            onDeleteSlide={handleDeleteSlide}
-            onDuplicateSlide={handleDuplicateSlide}
-            onReorder={handleReorderSlides}
-            onUpdatePresentationTitle={handleUpdatePresentationTitle}
-            onSave={handleSave}
-            onPresent={() => setIsPresenting(true)}
-            isSaving={isSaving}
+          <PropertiesPanel 
+            slide={currentPresentation.slides[selectedSlideIndex]}
+            onUpdate={(updates) => handleUpdateSlide(selectedSlideIndex, updates)}
             template={TEMPLATES[currentPresentation.template]}
             activeElement={activeElement}
             setActiveElement={setActiveElement}
-            showProperties={showProperties}
-            setShowProperties={setShowProperties}
-            theme={theme}
-            setTheme={setTheme}
+            isActive={showProperties}
+            setIsActive={setShowProperties}
           />
         )}
-        
-        {activeTab === 'my' && (
-          <MyPresentations 
-            presentations={savedPresentations}
-            onSelect={(p) => {
-              setCurrentPresentation(p);
-              localStorage.setItem('ppt_generator_last_active_id', p.id.toString());
-              setSelectedSlideIndex(0);
-              setActiveTab('new');
-              showNotification('Loaded: ' + p.title);
-            }}
-            onDelete={handleDeletePresentation}
-            onRename={handleRenameRequest}
-            theme={theme}
-            setTheme={setTheme}
-          />
+
+
+        {notification && (
+          <div className="success-toast">
+            <CheckCircle2 size={18} />
+            <span>{notification}</span>
+          </div>
         )}
-        
-        {activeTab === 'templates' && (
-          <TemplateGallery 
-            templates={TEMPLATES}
-            onSelect={handleSelectTemplate}
-            theme={theme}
-            setTheme={setTheme}
-          />
-        )}
-        
-        {activeTab === 'export' && (
-          <ExportMenu 
-            presentation={currentPresentation} 
-            template={TEMPLATES[currentPresentation.template]} 
-          />
-        )}
-      </main>
 
-      {activeTab === 'new' && (
-        <PropertiesPanel 
-          slide={currentPresentation.slides[selectedSlideIndex]}
-          onUpdate={(updates) => handleUpdateSlide(selectedSlideIndex, updates)}
-          template={TEMPLATES[currentPresentation.template]}
-          activeElement={activeElement}
-          setActiveElement={setActiveElement}
-          isActive={showProperties}
-          setIsActive={setShowProperties}
-        />
-      )}
-
-
-      {notification && (
-        <div className="success-toast">
-          <CheckCircle2 size={18} />
-          <span>{notification}</span>
-        </div>
-      )}
-
-      {isNameModalOpen && (
-        <div className="ai-modal-overlay">
-          <div className="ai-modal glass">
-            <h3>{modalMode === 'create' ? 'Name Your Project' : 'Rename Project'}</h3>
-            <p>{modalMode === 'create' ? 'Give your new presentation a descriptive title.' : 'Enter a new name for this presentation.'}</p>
-            <input 
-              type="text" 
-              className="modal-input" 
-              value={newProjectName} 
-              onChange={(e) => setNewProjectName(e.target.value)}
-              placeholder="e.g., Annual Sales Report"
-              autoFocus
-              onKeyDown={(e) => e.key === 'Enter' && handleModalConfirm()}
-            />
-            <div className="modal-actions">
-              <button className="btn-secondary" onClick={() => setIsNameModalOpen(false)}>Cancel</button>
-              <button className="btn-primary" onClick={handleModalConfirm}>
-                {modalMode === 'create' ? 'Create Presentation' : 'Save Changes'}
-              </button>
+        {isNameModalOpen && (
+          <div className="ai-modal-overlay">
+            <div className="ai-modal glass">
+              <h3>{modalMode === 'create' ? 'Name Your Project' : 'Rename Project'}</h3>
+              <p>{modalMode === 'create' ? 'Give your new presentation a descriptive title.' : 'Enter a new name for this presentation.'}</p>
+              <input 
+                type="text" 
+                className="modal-input" 
+                value={newProjectName} 
+                onChange={(e) => setNewProjectName(e.target.value)}
+                placeholder="e.g., Annual Sales Report"
+                autoFocus
+                onKeyDown={(e) => e.key === 'Enter' && handleModalConfirm()}
+              />
+              <div className="modal-actions">
+                <button className="btn-secondary" onClick={() => setIsNameModalOpen(false)}>Cancel</button>
+                <button className="btn-primary" onClick={handleModalConfirm}>
+                  {modalMode === 'create' ? 'Create Presentation' : 'Save Changes'}
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {isPresenting && (
-        <div className="presentation-overlay">
-          <button className="exit-present" onClick={() => setIsPresenting(false)}>Exit</button>
-          <div className="present-container">
-            <SlideCanvas 
-              slide={currentPresentation.slides[selectedSlideIndex]} 
-              template={TEMPLATES[currentPresentation.template]} 
-              isPreview={false}
-            />
+        {isPresenting && (
+          <div className="presentation-overlay">
+            <button className="exit-present" onClick={() => setIsPresenting(false)}>Exit</button>
+            <div className="present-container">
+              <SlideCanvas 
+                slide={currentPresentation.slides[selectedSlideIndex]} 
+                template={TEMPLATES[currentPresentation.template]} 
+                isPreview={false}
+              />
+            </div>
+            <div className="present-controls">
+              <button onClick={() => setSelectedSlideIndex(prev => Math.max(0, prev - 1))}>←</button>
+              <span>{selectedSlideIndex + 1} / {currentPresentation.slides.length}</span>
+              <button onClick={() => setSelectedSlideIndex(prev => Math.min(currentPresentation.slides.length - 1, prev + 1))}>→</button>
+            </div>
           </div>
-          <div className="present-controls">
-            <button onClick={() => setSelectedSlideIndex(prev => Math.max(0, prev - 1))}>←</button>
-            <span>{selectedSlideIndex + 1} / {currentPresentation.slides.length}</span>
-            <button onClick={() => setSelectedSlideIndex(prev => Math.min(currentPresentation.slides.length - 1, prev + 1))}>→</button>
-          </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
