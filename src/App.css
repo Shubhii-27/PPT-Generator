@@ -1360,7 +1360,7 @@
 
 #ppt-generator-app .tab-btn {
   flex: 1;
-  padding: 12px;
+  padding: 7px;
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-muted);
