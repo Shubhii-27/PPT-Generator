@@ -1,4 +1,4 @@
-import { FileText, Trash2, Calendar, Download, Upload, Sun, Moon, Edit2, ExternalLink } from 'lucide-react';
+import { FileText, Trash2, Calendar, Sun, Moon, Edit2, ExternalLink } from 'lucide-react';
 
 const MyPresentations = ({ presentations, onSelect, onDelete, onRename, theme, setTheme }) => {
   return (

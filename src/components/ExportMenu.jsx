@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FileDown, FileType, CheckCircle2, Loader2, Download } from 'lucide-react';
+import { FileDown, FileType, Loader2, Download } from 'lucide-react';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 import pptxgen from 'pptxgenjs';

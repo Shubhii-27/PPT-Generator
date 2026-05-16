@@ -1,4 +1,4 @@
-import { Plus, FolderOpen, Palette, Download, Layout, ChevronLeft, ChevronRight, Sun, Moon } from 'lucide-react';
+import { Plus, FolderOpen, Palette, Download, ChevronLeft, ChevronRight } from 'lucide-react';
 import logo from '../assets/logo.png';
 
 const Sidebar = ({ activeTab, setActiveTab, onCreateNew, isCollapsed, setIsCollapsed, theme, setTheme }) => {

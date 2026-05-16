@@ -1,15 +1,15 @@
 #ppt-generator-app {
   /* Ultra-Stable Z-Index Map */
   --z-base: 1;
-  --z-sidebar: 500;
-  --z-header: 600;
-  --z-toolbar: 700;
-  --z-properties-overlay: 1400;
-  --z-properties: 1500;
-  --z-modal-overlay: 2000;
-  --z-modal: 2001;
-  --z-toast: 3000;
-  --z-presentation: 4000;
+  --z-sidebar: 9000;
+  --z-header: 9100;
+  --z-toolbar: 9200;
+  --z-properties-overlay: 9400;
+  --z-properties: 9500;
+  --z-modal-overlay: 9600;
+  --z-modal: 9700;
+  --z-toast: 9800;
+  --z-presentation: 9900;
   --z-max: 9999;
 
   overflow-x: hidden !important;
@@ -44,7 +44,7 @@
 
 /* Sidebar */
 #ppt-generator-app .sidebar {
-  width: 240px; /* Wider for professional look */
+  width: 186px; /* User requested width */
   background: var(--bg-sidebar);
   border-right: 1px solid var(--border);
   display: flex;
@@ -56,8 +56,8 @@
 }
 
 #ppt-generator-app .sidebar.collapsed {
-  width: 64px;
-  padding: 24px 10px;
+  width: 72px; /* Slightly wider for better icon clearance */
+  padding: 32px 8px;
 }
 
 #ppt-generator-app .sidebar-logo {
@@ -103,17 +103,17 @@
 }
 
 #ppt-generator-app .collapsed .sidebar-logo {
-  padding: 8px 0 36px;
+  padding: 0 0 40px;
   justify-content: center;
   gap: 0;
 }
 
 #ppt-generator-app .collapsed .logo-container {
-  width: 42px;
-  height: 42px;
-  padding: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 6px;
   margin: 0;
-  box-shadow: 0 4px 10px rgba(239, 68, 68, 0.1);
+  box-shadow: 0 8px 20px rgba(239, 68, 68, 0.2);
 }
 
 #ppt-generator-app .collapse-toggle {
@@ -167,6 +167,7 @@
 #ppt-generator-app .collapsed .nav-item {
   justify-content: center;
   padding: 12px;
+  margin: 0 auto;
 }
 
 #ppt-generator-app .nav-item:hover {
@@ -2579,8 +2580,8 @@
 
 /* Responsiveness */
 
-/* Tablets and below (max-width: 1024px) */
-@media (max-width: 1024px) {
+/* Tablets and below (max-width: 900px) */
+@media (max-width: 900px) {
   #ppt-generator-app .sidebar {
     width: 64px;
     padding: 24px 10px;
@@ -2609,8 +2610,8 @@
   }
 }
 
-/* Mobile Devices (max-width: 768px) */
-@media (max-width: 768px) {
+/* Mobile Devices (max-width: 600px) */
+@media (max-width: 600px) {
   #ppt-generator-app .app-container {
     flex-direction: column;
   }
@@ -2635,9 +2636,9 @@
 
   #ppt-generator-app .sidebar {
     width: 100%;
-    height: 56px; /* Slightly slimmer */
+    height: 64px;
     flex-direction: row;
-    padding: 0 12px;
+    padding: 0 16px;
     border-right: none;
     border-bottom: 1px solid var(--border);
     position: sticky;
@@ -2647,6 +2648,22 @@
     justify-content: space-between;
     align-items: center;
     z-index: 1000;
+  }
+
+  #ppt-generator-app .sidebar-logo {
+    padding: 0;
+    margin: 0;
+    gap: 8px;
+  }
+
+  #ppt-generator-app .logo-container {
+    width: 32px;
+    height: 32px;
+    padding: 4px;
+  }
+
+  #ppt-generator-app .logo-text {
+    font-size: 1.2rem;
   }
 
   #ppt-generator-app .mobile-only {
@@ -2669,8 +2686,18 @@
   }
 
   #ppt-generator-app .nav-item {
-    padding: 8px;
-    width: auto;
+    padding: 10px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+
+  #ppt-generator-app .nav-item.active {
+    background: var(--primary);
+    color: white;
   }
 
   #ppt-generator-app .sidebar-footer,
@@ -2728,20 +2755,22 @@
   }
 
   #ppt-generator-app .editor-header {
-    padding: 8px 16px;
-    height: 56px;
+    padding: 0 16px;
+    height: 50px;
+    background: var(--bg-sidebar);
+    border-bottom: 1px solid var(--border);
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 8px;
-    flex-wrap: nowrap; /* Prevent wrapping to keep it slim */
   }
 
   #ppt-generator-app .presentation-title-input {
     width: auto;
     flex: 1;
-    font-size: 0.9rem;
-    min-width: 0; /* Allow shrinking */
+    font-size: 0.85rem;
+    padding: 6px 8px;
+    min-width: 0;
   }
 
   #ppt-generator-app .editor-actions {
@@ -2755,13 +2784,14 @@
   }
 
   #ppt-generator-app .toolbar {
-    margin: 12px auto;
-    padding: 4px 12px;
-    gap: 8px;
+    margin: 8px auto;
+    padding: 4px 8px;
+    gap: 4px;
     width: 95%;
-    overflow-x: auto;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+    background: var(--bg-card);
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    justify-content: center;
   }
 
   #ppt-generator-app .toolbar::-webkit-scrollbar {

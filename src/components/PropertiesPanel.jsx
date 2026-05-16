@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Bold, Italic, Underline, AlignLeft, AlignCenter, AlignRight, Type, Palette, Layers, Settings2, Image, Plus, Minus, ChevronDown, Droplets, Grid, Move, Play, Wand2, MousePointer2, Trash2, List, ArrowUp, ArrowDown, Type as CaseIcon, Maximize2, Square, Circle, Triangle, Star } from 'lucide-react';
+import { Bold, Italic, Underline, AlignLeft, AlignCenter, AlignRight, Type, Palette, Layers, Image, Plus, Minus, ChevronDown, Move, Play, Wand2, MousePointer2, Trash2, List, ArrowUp, ArrowDown, Type as CaseIcon, Square, Circle, Triangle, Star } from 'lucide-react';
 
 const PropertiesPanel = ({ slide, onUpdate, template, activeElement, setActiveElement, isActive, setIsActive }) => {
   const [activeTab, setActiveTab] = useState('home');

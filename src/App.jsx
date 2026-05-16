@@ -145,7 +145,6 @@ function App() {
   const [theme, setTheme] = useState(() => localStorage.getItem('ppt_generator_theme') || 'dark');
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('ppt_generator_theme', theme);
   }, [theme]);
   const [isSaving, setIsSaving] = useState(false);
@@ -326,6 +325,23 @@ function App() {
     const updated = savedPresentations.filter(p => p.id !== id);
     setSavedPresentations(updated);
     localStorage.setItem('ppt_generator_presentations', JSON.stringify(updated));
+    
+    if (currentPresentation && currentPresentation.id === id) {
+      if (updated.length > 0) {
+        setCurrentPresentation(updated[0]);
+        localStorage.setItem('ppt_generator_last_active_id', updated[0].id.toString());
+      } else {
+        const newPres = {
+          id: Date.now(),
+          title: 'Untitled Presentation',
+          template: 'corporate',
+          slides: [{ ...DEFAULT_SLIDE, id: `slide-${Date.now()}` }]
+        };
+        setCurrentPresentation(newPres);
+        localStorage.removeItem('ppt_generator_last_active_id');
+      }
+    }
+    
     showNotification('Presentation Deleted');
   };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
-import { Plus, Trash2, Bold, Italic, Underline, Palette, Image as ImageIcon, Copy, Loader2, CheckCircle2, Settings2, Play, Sun, Moon } from 'lucide-react';
+import { Plus, Trash2, Copy, Loader2, CheckCircle2, Settings2, Play, Sun, Moon } from 'lucide-react';
 import SlideCanvas from './SlideCanvas';
 
 const Workspace = ({ 
@@ -24,9 +24,6 @@ const Workspace = ({
   theme,
   setTheme
 }) => {
-  const [showAIModal, setShowAIModal] = React.useState(false);
-  const [aiPrompt, setAiPrompt] = React.useState('');
-  const [ribbonTab, setRibbonTab] = React.useState('Home');
   const currentSlide = presentation.slides[selectedSlideIndex];
 
   const handleDragEnd = (result) => {
